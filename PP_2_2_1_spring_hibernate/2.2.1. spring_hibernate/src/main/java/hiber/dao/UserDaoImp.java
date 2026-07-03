@@ -1,6 +1,5 @@
 package hiber.dao;
 
-import hiber.exceptions.NonUniqueResultReturnFirstException;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ public class UserDaoImp implements UserDao {
    private SessionFactory sessionFactory;
 
    @Override
-   public void add(User user) {
+   public void addUser(User user) {
       sessionFactory.getCurrentSession().save(user);
    }
 
@@ -37,9 +36,6 @@ public class UserDaoImp implements UserDao {
       List<User> result = query.getResultList();
       if (result.isEmpty()) {
          throw new NoResultException();
-      }
-      if (result.size()>1){
-         throw new NonUniqueResultReturnFirstException(result.size(), result.get(0));
       }
       return result.get(0);
    }
